@@ -71,5 +71,59 @@ module.exports = {
       console.log('error at deleting perMatric', err);
       res.status(401).json({error : 'error at deleting perMatric'})
     }) 
+  },
+
+  avgDownTime : (req, res) => {
+    console.log('aggregation');
+    perMatric.aggregate([{
+      $group : {
+        _id:null,
+        averageDownTime : { $avg : "$downtime"}
+      }
+    }]).then(data => {
+      console.log('aggregated downTime', data);
+      res.json(data)
+    }).catch(err => {
+      console.log('error at aggregating downTime', err);
+      res.status(401).json({error : 'error at aggregation downTime'})
+    })
+  },
+
+  totalMaintanceCost : (req, res) => {
+    console.log('maintance cost');
+    perMatric.aggregate([{
+      $group : {
+        _id:null,
+        averageDownTime : { $sum : "$maintanceCost"}
+      }
+    }]).then(data => {
+      console.log('aggregated maintanceCost', data);
+      res.json(data)
+    }).catch(err => {
+      console.log('error at aggregating maintanceCost', err);
+      res.status(401).json({error : 'error at aggregation maintanceCost'})
+    })
+  },
+
+  highFailureAssets : (req, res) => {
+    const threshold = req.body.threshold
+    perMatric.aggregate([
+      {
+        $match : {
+          failureRate : {$lt : threshold}
+        }
+      },
+      {
+        $sort : {
+          totalFailures : -1
+        }
+      }
+    ]).then(data => {
+      console.log('aggregated highFailureAsset', data);
+      res.json(data)
+    }).catch(err => {
+      console.log('error at aggregating highFailureAsset', err);
+      res.status(401).json({error : 'error at aggregation highFailureAsset'})
+    })
   }
 }
