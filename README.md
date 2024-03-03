@@ -30,9 +30,9 @@ yarn install
 
 **Configure Environment Variables:**
 
-project requires environment variables, 
+project requires environment variables,
 
-create a `.env` file in the root directory (inside AlgoEnergy directory) and set the necessary variables. 
+create a `.env` file in the root directory (inside AlgoEnergy directory) and set the necessary variables.
 
 ```
 PORT = 3000
@@ -70,7 +70,7 @@ Once the application is running, open a web browser and navigate to the specifie
 
 ## Usage
 
-all test apis are 
+all test apis are
 
 ### User Routes
 
@@ -167,42 +167,51 @@ all test apis are
 
 #### 3. Create Performance Metric:
 
-* **Endpoint:** `POST /performance`
-* 
+* **Endpoint:** `POST /performance/create`
+* body // _id should be asset _id
+* ```
+  {
+      "_id": "65e4d889fe819462c8237940",
+      "uptime": 50,
+      "downtime": 50,
+      "maintanceCost": 1000,
+      "failureRate": 20,
+      "efficiency": 70,
+      "capacity": 400,
+      "powerOutput": 70
+  }
+  ```
 
 #### 4. Update Performance Metric:
 
-* **Endpoint:** `PUT /performance/:id`
-* 
+* **Endpoint:** `PUT /performance/update`
+* with _id in body and parameters which need to be updated
 
 #### 5. Delete Performance Metric:
 
-* **Endpoint:** `DELETE /performance/:id`
-* 
+* **Endpoint:** `DELETE /performance/delete`
+* with _id in body
 
 #### 6. Aggregations:
 
 ##### Total Maintenance Cost:
 
-* **Endpoint:** `GET /performance/aggregation/totalMaintenanceCost`
+* **Endpoint:** `GET /performance/aggregate/maintanceCost`
 
 ##### Assets with Highest Failure Rate:
 
-* **Endpoint:** `GET /performance/aggregation/highestFailureRateAssets`
-* 
+* **Endpoint:** `GET /performance/aggregate/highFailureAsset`
+* with body
+* ```
+  {
+      "threshold": 30
+  }
+  ```
 
 ##### Average Downtime:
 
-* **Endpoint:** `GET /performance/aggregation/averageDowntime`
+* **Endpoint:** `GET /performance/aggregate/downTime`
 
-## Contributing
+### postman testing
 
-Explain how others can contribute to your project.
-
-## License
-
-State the license under which your project is released.
-
-## Acknowledgements
-
-Give credit to any resources, tools, or individuals that helped you during the project.
+postman folder contains json files that can be imported in postman and for all test cases
