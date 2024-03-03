@@ -25,8 +25,10 @@ app.use(express.json());
 
 //routes
 const assetRoute = require('./routes/assetRoute')
+const performanceRoute = require('./routes/perMatricRoute')
+
 app.use('/asset', assetRoute)
-// app.use('/performance', performanceRoute)
+app.use('/performance', performanceRoute)
 
 
 

@@ -1,7 +1,5 @@
 const express = require('express')
 const assetController = require('../controllers/assetController')
-const { model } = require('mongoose')
-
 
 const router = express.Router()
 

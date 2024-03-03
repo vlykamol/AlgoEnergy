@@ -3,7 +3,7 @@ const assetTemplate = require('../schemas/asset')
 const asset = require('../schemas/asset')
 
 module.exports = {
-  getAsset : async (req, res) => {
+  getAsset : (req, res) => {
     const body = req.body
     const _id = body._id
     asset.findById(_id).then(data => {
@@ -11,20 +11,21 @@ module.exports = {
       res.json(data)
     }).catch(err => {
       console.log('error at getting asset', err);
-      res.status(401).json({error : err.message})
+      res.status(401).json({error : 'error at getting asset'})
     })
   },
 
-  getAllAsset : async (req, res) => {
-    asset.find().then(r => {
-      res.json(r)
+  getAllAsset : (req, res) => {
+    asset.find().then(data => {
+      console.log('all asset data', data);
+      res.json(data)
     }).catch(err => {
-      console.log('error at getting all assets');
-      res.status(401).json({error : err.message})
+      console.log('error at getting all assets', err);
+      res.status(401).json({error : 'error at getting all assets'})
     })
   },
    
-  createAsset : async (req, res) => {
+  createAsset : (req, res) => {
     const body = req.body
     const asset = new assetTemplate({
       initialCost : body.initialCost,
@@ -34,7 +35,6 @@ module.exports = {
       status : body.status,
       type : body.type
     })
-    console.log("asset : ", asset)
     asset.save().then(data => {
       console.log("asset created", data);
       res.json("asset created")
@@ -44,29 +44,29 @@ module.exports = {
     })
   },
 
-  updateAsset : async (req, res) => {
+  updateAsset : (req, res) => {
     const body = req.body
     const _id = body._id
     const newAsset = {...body}
     asset.findOneAndUpdate({_id}, newAsset, {upsert
       : true, new: true}).then(data => {
-        console.log('updated data', data);
+        console.log('updated asset', data);
         res.json(data)
       }).catch(err => {
-        console.log('error at updating', err);
-        res.status(401).json({error : err.message})
+        console.log('error at updating asset', err);
+        res.status(401).json({error : 'error at updating asset'})
       })
   },
   
-  deleteAsset : async (req, res) => {
+  deleteAsset : (req, res) => {
     const body = req.body
     const _id = body._id
     asset.deleteOne({_id}).then((data) => {
       console.log("asset deleted", data)
       res.json("asset deleted")
     }).catch(err => {
-      console.log('error at deleting', err);
-      res.status(401).json({error : err.message})
+      console.log('error at deleting asset', err);
+      res.status(401).json({error : 'error at deleting asset'})
     }) 
   }
 }
