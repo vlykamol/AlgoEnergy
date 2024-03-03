@@ -154,6 +154,47 @@ all test apis are
 * **Endpoint:** `DELETE /asset/delete`
 * with _id in body
 
+### Performance Metrics Routes
+
+#### 1. Get Performance Metric by ID:
+
+* **Endpoint:** `GET /performance/get`
+* with _id in body
+
+#### 2. Get All Performance Metrics:
+
+* **Endpoint:** `GET /performance/getAll`
+
+#### 3. Create Performance Metric:
+
+* **Endpoint:** `POST /performance`
+* 
+
+#### 4. Update Performance Metric:
+
+* **Endpoint:** `PUT /performance/:id`
+* 
+
+#### 5. Delete Performance Metric:
+
+* **Endpoint:** `DELETE /performance/:id`
+* 
+
+#### 6. Aggregations:
+
+##### Total Maintenance Cost:
+
+* **Endpoint:** `GET /performance/aggregation/totalMaintenanceCost`
+
+##### Assets with Highest Failure Rate:
+
+* **Endpoint:** `GET /performance/aggregation/highestFailureRateAssets`
+* 
+
+##### Average Downtime:
+
+* **Endpoint:** `GET /performance/aggregation/averageDowntime`
+
 ## Contributing
 
 Explain how others can contribute to your project.
